@@ -15,11 +15,14 @@ function Particle(x, y) {
 }
 Particle.prototype = {
   draw: function(ctx) {
+    ctx.save();
     ctx.beginPath();
     // A full circle.
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-    ctx.stroke();
     ctx.closePath();
+    ctx.strokeStyle = 'rgb(255,255,255)';
+    ctx.stroke();
+    ctx.restore();
   },
   update: function() {
     this.x += this.x * this.velX;
@@ -56,7 +59,7 @@ function blank(ctx) {
   ctx.fillRect(0, 0, c.width, c.height);
 
   /// Empty middle.
-  ctx.fillStyle = 'rgb(255,255,255)';
+  ctx.fillStyle = 'rgb(0,0,0)';
   ctx.fillRect(BORDER, BORDER, c.width-(BORDER*2), c.height-(BORDER*2))
 }
 
