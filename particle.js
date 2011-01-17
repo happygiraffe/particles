@@ -5,15 +5,19 @@ var particles = [],
 function Particle(x, y) {
   this.x = x;
   this.y = y;
+
   // Velocity
   this.velX = 0;
   this.velY = 0;
+
+  // Size
+  this.size = 1;
 }
 Particle.prototype = {
   draw: function(ctx) {
     ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x+1, this.y+1);
+    // A full circle.
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
     ctx.stroke();
     ctx.closePath();
   },
