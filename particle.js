@@ -78,8 +78,8 @@ function main () {
   for (var i=0; i < 20; i++) {
     p = new Particle(roundRand(minWidth, maxWidth),
                      roundRand(minHeight, maxHeight));
-    p.velX = 0.01;
-    p.velY = 0.01;
+    p.velX = rnd(0.01, 0.05);
+    p.velY = rnd(0.01, 0.05);
     p.draw(ctx);
     particles.push(p);
   }
