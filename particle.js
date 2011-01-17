@@ -1,6 +1,5 @@
 var particles = [],
-    animateIntervalId,
-    BORDER = 20;
+    animateIntervalId;
 
 function Particle(x, y) {
   this.x = x;
@@ -54,13 +53,11 @@ function animate() {
 }
 
 function blank(ctx) {
-  // Draw a dark gray border.
-  ctx.fillStyle = 'rgb(64,64,64)';
-  ctx.fillRect(0, 0, c.width, c.height);
+  var c = ctx.canvas;
 
   /// Empty middle.
   ctx.fillStyle = 'rgb(0,0,0)';
-  ctx.fillRect(BORDER, BORDER, c.width-(BORDER*2), c.height-(BORDER*2))
+  ctx.fillRect(0, 0, c.width, c.height)
 }
 
 function main () {
@@ -71,10 +68,10 @@ function main () {
   blank(ctx);
 
   // Draw 20 random particles.
-  var minWidth = BORDER,
-      maxWidth = ctx.canvas.width - BORDER,
-      minHeight = BORDER,
-      maxHeight = ctx.canvas.height - BORDER;
+  var minWidth = 0,
+      maxWidth = ctx.canvas.width,
+      minHeight = 0,
+      maxHeight = ctx.canvas.height;
   for (var i=0; i < 20; i++) {
     p = new Particle(roundRand(minWidth, maxWidth),
                      roundRand(minHeight, maxHeight));
