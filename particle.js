@@ -52,6 +52,9 @@ Particle.prototype = {
   translatedY: function() {
     return (this.ctx.canvas.height / 2) - this.y;
   },
+  toString: function() {
+    return 'Particle(' + this.x + ', ' + this.y + ')';
+  },
   update: function() {
     var newX = Math.round(this.x + (this.x * this.velX)),
         newY = Math.round(this.y + (this.y * this.velY));
