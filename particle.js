@@ -2,7 +2,8 @@ var particles = [],
     animateIntervalId,
     NPARTICLES = 5,
     nframes = 0,
-    MAX_FRAMES = 20;
+    MAX_FRAMES = 100,
+    BOUNCE = 0.6; // How much is velocity reduced by on collision?
 
 function Particle(ctx, x, y) {
   this.ctx = ctx;
@@ -31,6 +32,18 @@ Particle.prototype = {
     this.ctx.stroke();
     this.ctx.restore();
   },
+  minX: function() {
+    return -(this.ctx.canvas.width / 2);
+  },
+  maxX: function() {
+    return this.ctx.canvas.width / 2;
+  },
+  minY: function() {
+    return -(this.ctx.canvas.height / 2);
+  },
+  maxY: function() {
+    return this.ctx.canvas.height / 2;
+  },
   // Place the centre in the middle of the canvas.
   translatedX: function() {
     return this.x + (this.ctx.canvas.width / 2);
@@ -40,8 +53,21 @@ Particle.prototype = {
     return (this.ctx.canvas.height / 2) - this.y;
   },
   update: function() {
-    this.x += this.x * this.velX;
-    this.y += this.y * this.velY;
+    var newX = this.x + (this.x * this.velX),
+        newY = this.y + (this.y * this.velY);
+    // Collision detection.
+    if (newX >= this.maxX() || newX <= this.minX()) {
+      this.velX *= -BOUNCE;
+      this.update();
+      return;
+    }
+    if (newY >= this.maxY() || newY <= this.minY()) {
+      this.velY *= -BOUNCE
+      this.update();
+      return;
+    }
+    this.x = newX;
+    this.y = newY;
   },
 };
 
