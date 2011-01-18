@@ -67,7 +67,7 @@ function animate() {
     p.draw(ctx);
   };
   nframes += 1;
-  if (nframes > MAX_FRAMES) {
+  if (nframes >= MAX_FRAMES) {
     stop();
   }
 }
