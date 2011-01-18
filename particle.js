@@ -56,12 +56,14 @@ Particle.prototype = {
     var newX = this.x + (this.x * this.velX),
         newY = this.y + (this.y * this.velY);
     // Collision detection.
-    if (newX >= this.maxX() || newX <= this.minX()) {
+    if ((newX + this.size) >= this.maxX() ||
+        (newX - this.size) <= this.minX()) {
       this.velX *= -BOUNCE;
       this.update();
       return;
     }
-    if (newY >= this.maxY() || newY <= this.minY()) {
+    if ((newY + this.size) >= this.maxY() ||
+        (newY - this.size) <= this.minY()) {
       this.velY *= -BOUNCE
       this.update();
       return;
