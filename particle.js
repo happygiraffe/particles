@@ -1,6 +1,6 @@
 var particles = [],
     animateIntervalId,
-    NPARTICLES = 1,
+    NPARTICLES = 5,
     nframes = 0,
     MAX_FRAMES = 20;
 
