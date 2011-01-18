@@ -134,7 +134,7 @@ function main () {
     particles.push(p);
   }
 
-  animateIntervalId = setInterval(animate, 250);
+  animateIntervalId = setInterval(animate, 100);
 }
 
 // Just for the console.
