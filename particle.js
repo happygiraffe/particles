@@ -61,7 +61,7 @@ Particle.prototype = {
       newX = this.maxX() - this.size;
     } else if ((newX - this.size) <= this.minX()) {
       this.velX *= -BOUNCE;
-      newx = this.minX() + this.size;
+      newX = this.minX() + this.size;
     }
     if ((newY + this.size) >= this.maxY()) {
       this.velY *= -BOUNCE;
