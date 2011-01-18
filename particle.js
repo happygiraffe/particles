@@ -53,20 +53,22 @@ Particle.prototype = {
     return (this.ctx.canvas.height / 2) - this.y;
   },
   update: function() {
-    var newX = this.x + (this.x * this.velX),
-        newY = this.y + (this.y * this.velY);
+    var newX = Math.round(this.x + (this.x * this.velX)),
+        newY = Math.round(this.y + (this.y * this.velY));
     // Collision detection.
-    if ((newX + this.size) >= this.maxX() ||
-        (newX - this.size) <= this.minX()) {
+    if ((newX + this.size) >= this.maxX()) {
       this.velX *= -BOUNCE;
-      this.update();
-      return;
+      newX = this.maxX() - this.size;
+    } else if ((newX - this.size) <= this.minX()) {
+      this.velX *= -BOUNCE;
+      newx = this.minX() + this.size;
     }
-    if ((newY + this.size) >= this.maxY() ||
-        (newY - this.size) <= this.minY()) {
-      this.velY *= -BOUNCE
-      this.update();
-      return;
+    if ((newY + this.size) >= this.maxY()) {
+      this.velY *= -BOUNCE;
+      newY = this.maxY() - this.size;
+    } else if ((newY - this.size) <= this.minY()) {
+      this.velY *= -BOUNCE;
+      newY = this.minY() + this.size;
     }
     this.x = newX;
     this.y = newY;
