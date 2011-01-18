@@ -1,7 +1,11 @@
 var particles = [],
-    animateIntervalId;
+    animateIntervalId,
+    NPARTICLES = 1,
+    nframes = 0,
+    MAX_FRAMES = 20;
 
-function Particle(x, y) {
+function Particle(ctx, x, y) {
+  this.ctx = ctx;
   this.x = x;
   this.y = y;
 
@@ -14,15 +18,25 @@ function Particle(x, y) {
 }
 
 Particle.prototype = {
-  draw: function(ctx) {
-    ctx.save();
-    ctx.beginPath();
+  draw: function() {
+    var x = this.translatedX(),
+        y = this.translatedY();
+    this.ctx.save();
+    this.ctx.beginPath();
     // A full circle.
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-    ctx.closePath();
-    ctx.strokeStyle = 'rgb(255,255,255)';
-    ctx.stroke();
-    ctx.restore();
+    this.ctx.arc(x, y, this.size, 0, Math.PI * 2, false);
+    this.ctx.closePath();
+    this.ctx.strokeStyle = 'rgb(255,255,255)';
+    this.ctx.stroke();
+    this.ctx.restore();
+  },
+  // Place the centre in the middle of the canvas.
+  translatedX: function() {
+    return this.x + (this.ctx.canvas.width / 2);
+  },
+  // Place the centre in the middle of the canvas, *and upside down.*
+  translatedY: function() {
+    return (this.ctx.canvas.height / 2) - this.y;
   },
   update: function() {
     this.x += this.x * this.velX;
@@ -51,6 +65,10 @@ function animate() {
     p.update();
     p.draw(ctx);
   };
+  nframes += 1;
+  if (nframes > MAX_FRAMES) {
+    stop();
+  }
 }
 
 function blank(ctx) {
@@ -64,17 +82,17 @@ function blank(ctx) {
 function main () {
   var ctx = document.getElementById('c').getContext('2d'),
       p;
-  console.log(ctx);
 
   blank(ctx);
 
   // Draw 20 random particles.
-  var minWidth = 0,
-      maxWidth = ctx.canvas.width,
-      minHeight = 0,
-      maxHeight = ctx.canvas.height;
-  for (var i=0; i < 20; i++) {
-    p = new Particle(roundRand(minWidth, maxWidth),
+  var minWidth = -(ctx.canvas.width/2),
+      maxWidth = (ctx.canvas.width/2),
+      minHeight = -(ctx.canvas.height/2),
+      maxHeight = (ctx.canvas.height/2);
+  for (var i=0; i < NPARTICLES; i++) {
+    p = new Particle(ctx,
+                     roundRand(minWidth, maxWidth),
                      roundRand(minHeight, maxHeight));
     p.velX = rnd(0.01, 0.05);
     p.velY = rnd(0.01, 0.05);
