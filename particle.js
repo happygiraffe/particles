@@ -64,8 +64,8 @@ function animate() {
   for (var i=0; i < particles.length; i++) {
     p = particles[i];
     p.update();
-    p.draw(ctx);
-  };
+    p.draw();
+  }
   nframes += 1;
   if (nframes >= MAX_FRAMES) {
     stop();
