@@ -10,8 +10,9 @@ function Particle(x, y) {
   this.velY = 0;
 
   // Size
-  this.size = 1;
+  this.size = 10;
 }
+
 Particle.prototype = {
   draw: function(ctx) {
     ctx.save();
