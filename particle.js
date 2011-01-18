@@ -19,6 +19,7 @@ function Particle(ctx, x, y) {
 
 Particle.prototype = {
   draw: function() {
+    // TODO: see if I can use the builtin canvas translate() instead.
     var x = this.translatedX(),
         y = this.translatedY();
     this.ctx.save();
@@ -106,6 +107,7 @@ function main () {
 // Just for the console.
 function stop() {
   clearInterval(animateIntervalId);
+  console.log("Stopping.")
 }
 
 document.body.onload = main;
