@@ -2,7 +2,7 @@ var particles = [],
     animateIntervalId,
     NPARTICLES = 5,
     nframes = 0,
-    MAX_FRAMES = 100,
+    MAX_FRAMES = 200,
     BOUNCE = 0.6; // How much is velocity reduced by on collision?
 
 function Particle(ctx, x, y) {
