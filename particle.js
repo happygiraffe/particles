@@ -70,7 +70,7 @@ Particle.prototype = {
     }
     this.x = newX;
     this.y = newY;
-  },
+  }
 };
 
 function rnd(lower, upper) {
@@ -81,13 +81,13 @@ function rnd(lower, upper) {
 }
 
 function roundRand(lower, upper) {
-  return Math.round(rnd(lower, upper))
+  return Math.round(rnd(lower, upper));
 }
 
 function animate() {
   var ctx = document.getElementById('c').getContext('2d'),
       p;
-  console.log('animate()')
+  console.log('animate()');
   blank(ctx);
   for (var i=0; i < particles.length; i++) {
     p = particles[i];
@@ -105,7 +105,7 @@ function blank(ctx) {
 
   /// Empty middle.
   ctx.fillStyle = 'rgb(0,0,0)';
-  ctx.fillRect(0, 0, c.width, c.height)
+  ctx.fillRect(0, 0, c.width, c.height);
 }
 
 function main () {
@@ -135,7 +135,7 @@ function main () {
 // Just for the console.
 function stop() {
   clearInterval(animateIntervalId);
-  console.log("Stopping.")
+  console.log("Stopping.");
 }
 
 document.body.onload = main;
