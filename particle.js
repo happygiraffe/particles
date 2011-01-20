@@ -4,7 +4,7 @@ var particles = [],
     nframes = 0,
     MAX_FRAMES = 200,
     BOUNCE = 0.6, // How much is velocity reduced by on collision?
-    DRAG = 0.97,
+    DRAG = 0.98,
     GRAVITY = 0.9;
 
 function Particle(ctx, x, y) {
