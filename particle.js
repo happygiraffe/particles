@@ -91,6 +91,12 @@ Particle.prototype = {
   }
 };
 
+// Just for the console.
+function stop() {
+  clearInterval(animateIntervalId);
+  console.log("Stopping.");
+}
+
 function rnd(lower, upper) {
   var maxima = Math.max(upper, lower),
       minima = Math.min(upper, lower),
@@ -102,7 +108,15 @@ function rndColor() {
   function rndByte() {
     return Math.round(rnd(0,255));
   }
-  return 'rgb(' + rndByte() + ',' + rndByte() + ',' + rndByte() +')'
+  return 'rgb(' + rndByte() + ',' + rndByte() + ',' + rndByte() +')';
+}
+
+function blank(ctx) {
+  var c = ctx.canvas;
+
+  /// Empty middle.
+  ctx.fillStyle = 'rgb(0,0,0)';
+  ctx.fillRect(0, 0, c.width, c.height);
 }
 
 function animate() {
@@ -119,14 +133,6 @@ function animate() {
   if (nframes >= MAX_FRAMES) {
     stop();
   }
-}
-
-function blank(ctx) {
-  var c = ctx.canvas;
-
-  /// Empty middle.
-  ctx.fillStyle = 'rgb(0,0,0)';
-  ctx.fillRect(0, 0, c.width, c.height);
 }
 
 function main () {
@@ -146,12 +152,6 @@ function main () {
   }
 
   animateIntervalId = setInterval(animate, 100);
-}
-
-// Just for the console.
-function stop() {
-  clearInterval(animateIntervalId);
-  console.log("Stopping.");
 }
 
 document.body.onload = main;
