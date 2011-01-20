@@ -3,7 +3,8 @@ var particles = [],
     NPARTICLES = 5,
     nframes = 0,
     MAX_FRAMES = 200,
-    BOUNCE = 0.6; // How much is velocity reduced by on collision?
+    BOUNCE = 0.6, // How much is velocity reduced by on collision?
+    DRAG = 0.97;
 
 function Particle(ctx, x, y) {
   this.ctx = ctx;
@@ -13,6 +14,9 @@ function Particle(ctx, x, y) {
   // Velocity
   this.velX = 0;
   this.velY = 0;
+  
+  // Drag
+  this.drag = DRAG;
 
   // Size
   this.size = 10;
@@ -61,6 +65,11 @@ Particle.prototype = {
   update: function() {
     var newX = this.x + this.velX,
         newY = this.y + this.velY;
+
+    // Drag
+    this.velX *= this.drag;
+    this.velY *= this.drag;
+
     // Edge collision detection.
     if ((newX + this.size) >= this.maxX()) {
       this.velX *= -BOUNCE;
