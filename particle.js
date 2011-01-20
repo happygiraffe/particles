@@ -16,6 +16,9 @@ function Particle(ctx, x, y) {
 
   // Size
   this.size = 10;
+  
+  // Color
+  this.color = 'rgb(255,255,255)';
 }
 
 Particle.prototype = {
@@ -28,7 +31,7 @@ Particle.prototype = {
     // A full circle.
     this.ctx.arc(x, y, this.size, 0, Math.PI * 2, false);
     this.ctx.closePath();
-    this.ctx.strokeStyle = 'rgb(255,255,255)';
+    this.ctx.strokeStyle = this.color;
     this.ctx.stroke();
     this.ctx.restore();
   },
@@ -86,6 +89,13 @@ function rnd(lower, upper) {
   return value + minima;
 }
 
+function rndColor() {
+  function rndByte() {
+    return Math.round(rnd(0,255));
+  }
+  return 'rgb(' + rndByte() + ',' + rndByte() + ',' + rndByte() +')'
+}
+
 function animate() {
   var ctx = document.getElementById('c').getContext('2d'),
       p;
@@ -125,6 +135,7 @@ function main () {
     p = new Particle(ctx, 0, 0);
     p.velX = rnd(-5, 5);
     p.velY = rnd(-5, 5);
+    p.color = rndColor();
     p.draw(ctx);
     particles.push(p);
   }
