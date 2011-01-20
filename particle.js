@@ -129,7 +129,7 @@ function main () {
   // Draw 20 random particles.
   for (var i=0; i < NPARTICLES; i++) {
     p = new Particle(ctx, 0, 0);
-    p.velX = rnd(-5, 5);
+    p.velX = rnd(-10, 10);
     p.velY = rnd(-5, 5);
     p.color = rndColor();
     p.draw(ctx);
