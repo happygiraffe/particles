@@ -58,7 +58,7 @@ Particle.prototype = {
   update: function() {
     var newX = Math.round(this.x + (this.x * this.velX)),
         newY = Math.round(this.y + (this.y * this.velY));
-    // Collision detection.
+    // Edge collision detection.
     if ((newX + this.size) >= this.maxX()) {
       this.velX *= -BOUNCE;
       newX = this.maxX() - this.size;
@@ -73,6 +73,7 @@ Particle.prototype = {
       this.velY *= -BOUNCE;
       newY = this.minY() + this.size;
     }
+    // TODO: particle collision detection.
     this.x = newX;
     this.y = newY;
   }
