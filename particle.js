@@ -1,11 +1,25 @@
 var particles = [],
     animateIntervalId,
-    NPARTICLES = 5,
+    NPARTICLES = 20,
     nframes = 0,
     MAX_FRAMES = 200,
     BOUNCE = 0.6, // How much is velocity reduced by on collision?
     DRAG = 0.98,
     GRAVITY = 0.9;
+
+function rnd(lower, upper) {
+  var maxima = Math.max(upper, lower),
+      minima = Math.min(upper, lower),
+      value = Math.random() * (maxima - minima);
+  return value + minima;
+}
+
+function rndColor() {
+  function rndByte() {
+    return Math.round(rnd(0,255));
+  }
+  return 'rgb(' + rndByte() + ',' + rndByte() + ',' + rndByte() +')';
+}
 
 function Particle(ctx, x, y) {
   this.ctx = ctx;
@@ -28,6 +42,15 @@ function Particle(ctx, x, y) {
   // Color
   this.color = 'rgb(255,255,255)';
 }
+
+// Particle factory.
+Particle.create = function(ctx) {
+  var p = new Particle(ctx, 0, 0);
+  p.velX = rnd(-10, 10);
+  p.velY = rnd(-5, 5);
+  p.color = rndColor();
+  return p;
+};
 
 Particle.prototype = {
   draw: function() {
@@ -110,20 +133,6 @@ function stop() {
   console.log("Stopping.");
 }
 
-function rnd(lower, upper) {
-  var maxima = Math.max(upper, lower),
-      minima = Math.min(upper, lower),
-      value = Math.random() * (maxima - minima);
-  return value + minima;
-}
-
-function rndColor() {
-  function rndByte() {
-    return Math.round(rnd(0,255));
-  }
-  return 'rgb(' + rndByte() + ',' + rndByte() + ',' + rndByte() +')';
-}
-
 function blank(ctx) {
   var c = ctx.canvas;
 
@@ -137,11 +146,22 @@ function animate() {
       p;
   console.log('animate()');
   blank(ctx);
+
+  // Add a new one.
+  particles.push(Particle.create(ctx));
+
+  // Iterate through all.
   for (var i=0; i < particles.length; i++) {
     p = particles[i];
     p.update();
     p.draw();
   }
+
+  // Remove oldest if necessary.
+  if (particles.length > NPARTICLES) {
+    particles.shift();
+  }
+
   nframes += 1;
   if (nframes >= MAX_FRAMES) {
     stop();
@@ -153,16 +173,6 @@ function main () {
       p;
 
   blank(ctx);
-
-  // Draw 20 random particles.
-  for (var i=0; i < NPARTICLES; i++) {
-    p = new Particle(ctx, 0, 0);
-    p.velX = rnd(-10, 10);
-    p.velY = rnd(-5, 5);
-    p.color = rndColor();
-    p.draw(ctx);
-    particles.push(p);
-  }
 
   animateIntervalId = setInterval(animate, 100);
 }
