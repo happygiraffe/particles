@@ -32,8 +32,14 @@ Particle.prototype = {
         y = this.translatedY();
     this.ctx.save();
     this.ctx.beginPath();
+
     // A full circle.
     this.ctx.arc(x, y, this.size, 0, Math.PI * 2, false);
+
+    // And a square in the middle.
+    this.ctx.rect(x-(this.size/2), y-(this.size/2), this.size, this.size);
+    this.ctx.rect(x-(this.size/4), y-(this.size/4), this.size/2, this.size/2);
+
     this.ctx.closePath();
     this.ctx.strokeStyle = this.color;
     this.ctx.stroke();
