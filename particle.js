@@ -127,10 +127,6 @@ function main () {
   blank(ctx);
 
   // Draw 20 random particles.
-  var minWidth = -(ctx.canvas.width/2),
-      maxWidth = (ctx.canvas.width/2),
-      minHeight = -(ctx.canvas.height/2),
-      maxHeight = (ctx.canvas.height/2);
   for (var i=0; i < NPARTICLES; i++) {
     p = new Particle(ctx, 0, 0);
     p.velX = rnd(-5, 5);
