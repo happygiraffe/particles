@@ -56,8 +56,8 @@ Particle.prototype = {
     return 'Particle(' + this.x + ', ' + this.y + ')';
   },
   update: function() {
-    var newX = Math.round(this.x + (this.x * this.velX)),
-        newY = Math.round(this.y + (this.y * this.velY));
+    var newX = this.x + this.velX,
+        newY = this.y + this.velY;
     // Edge collision detection.
     if ((newX + this.size) >= this.maxX()) {
       this.velX *= -BOUNCE;
@@ -84,10 +84,6 @@ function rnd(lower, upper) {
       minima = Math.min(upper, lower),
       value = Math.random() * (maxima - minima);
   return value + minima;
-}
-
-function roundRand(lower, upper) {
-  return Math.round(rnd(lower, upper));
 }
 
 function animate() {
@@ -126,11 +122,9 @@ function main () {
       minHeight = -(ctx.canvas.height/2),
       maxHeight = (ctx.canvas.height/2);
   for (var i=0; i < NPARTICLES; i++) {
-    p = new Particle(ctx,
-                     roundRand(minWidth, maxWidth),
-                     roundRand(minHeight, maxHeight));
-    p.velX = rnd(0.01, 0.05);
-    p.velY = rnd(0.01, 0.05);
+    p = new Particle(ctx, 0, 0);
+    p.velX = rnd(-5, 5);
+    p.velY = rnd(-5, 5);
     p.draw(ctx);
     particles.push(p);
   }
